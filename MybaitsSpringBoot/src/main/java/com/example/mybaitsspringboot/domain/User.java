@@ -2,6 +2,7 @@ package com.example.mybaitsspringboot.domain;
 
 /**
  * 这是user实体类
+ * 8.7
  */
 public class User {
     private  int id;
