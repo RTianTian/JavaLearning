@@ -1,0 +1,16 @@
+//状态是404代表地址错了，
+//状态是500代表代码错了，
+//状态是405代表post请求方式不被允许，
+
+@RestController  //打印出来是字符串----如：/get2中打印出来是index
+//@Controller //打印出来是字符串里面的代码，是一个网页----会跳转到index.html下
+@RestController 相当于@Controller 和@ResponseBody
+//@RequestParam 有改名作用，将a换成ccc
+//http://127.0.0.1:8080/user/getnew?a=4   可在浏览器输出界面，显示出4
+
+<!--先写一个注解-->
+<!--再写一个方法 public String 方法名 (参数类型 参数a)-->
+<!--再写一个返回值-->
+
+<!--get是从服务器上获取数据。-->
+<!--//post是向服务器传送数据。 比较安全-->

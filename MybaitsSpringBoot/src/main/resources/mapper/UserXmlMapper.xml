@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybaitsspringboot.mapper.UserMapper">
+    <update id="updateId">
+        UPDATE user set username ='天天' where id = #{id}
+    </update>
+
+    <select id="findAll2" resultType="com.example.mybaitsspringboot.domain.User">
+        SELECT * FROM user
+    </select>
+
+
+
+</mapper>
+<!--https://leetcode.cn/leetbook/-->

@@ -1,0 +1,7 @@
+#修改项目的访问路径 默认值为：
+server:
+  port: 8080
+#得搜索这个http://localhost:8080/hello/hello?str 两个hello，因为有两层
+  servlet:
+    context-path: /hello
+

@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    username: root
+    password: 1234
+#    数据库连接配置 jdbc：mysql://ip和端口号/springboot
+    url: jdbc:mysql://localhost:3306/springboot?serverTimezone=UTC
+#    驱动配置
+    driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+server:
+  port: 8081

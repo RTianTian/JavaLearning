@@ -1,0 +1,22 @@
+
+#1、通过yml文件来修改配置文件端口号 spring:
+#  profiles:
+#    active: dev 代表dev被激活
+#2、通过右上角配置，-Dspring.profiles.active=pro 来配置端口
+server:
+  port: 8080
+
+
+---
+server:
+  port: 8081
+spring:
+  profiles:
+    active: dev
+---
+server:
+  port: 8082
+
+---
+server:
+  port: 8083

@@ -1,0 +1,19 @@
+server:
+  port: 8081
+#这个配置文件里面写属性的值
+#  对象：属性：值
+person:
+  lastname: zhangsan
+  age: 18
+  boss: false
+  birth: 2017/12/12
+#  maps属性
+  maps: {k1: v1,k2: v2}
+#  list属性
+  lists:
+    -lisi
+    -zhaoliu
+  dog:
+    name: 小狗
+    age: 2
+
