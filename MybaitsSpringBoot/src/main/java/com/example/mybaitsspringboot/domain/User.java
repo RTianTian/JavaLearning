@@ -1,5 +1,8 @@
 package com.example.mybaitsspringboot.domain;
 
+/**
+ * 这是user实体类
+ */
 public class User {
     private  int id;
     private String username;
