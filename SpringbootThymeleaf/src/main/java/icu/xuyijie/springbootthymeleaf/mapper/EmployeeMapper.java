@@ -2,6 +2,7 @@ package icu.xuyijie.springbootthymeleaf.mapper;
 
 import icu.xuyijie.springbootthymeleaf.entity.Employee;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -12,13 +13,12 @@ import java.util.List;
  */
 @Mapper
 public interface EmployeeMapper {
+    Employee getById(@Param("id") int id);
+
     List<Employee> searchEmployeeList(Employee employee);
 
     int insert(Employee employee);
 
     int update(Employee employee);
 
-    int delete(Employee employee);
-
-    int departOrEntryEmployee(Employee employee);
 }

@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>添加员工</title>
+    <title>[[${title}]]</title>
+    <style>
+        form {
+            margin: 150px auto;
+            text-align: center;
+        }
+        .blockLabel {
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
+
+<form th:action="@{'/employee/addOrEditEmployee/' + ${employee.id}}" method="post">
+    <label class="blockLabel">
+        名字：
+        <input type="text" name="name" th:value="${employee.name}">
+    </label>
+    <label class="blockLabel">
+        职位：
+        <input type="text" name="duty" th:value="${employee.duty}">
+    </label>
+    <label class="blockLabel">
+        性别：
+        <label>
+            <input type="radio" name="sex" th:value="男" th:checked="${employee.sex} == '男'">
+            男
+        </label>
+        <label>
+            <input type="radio" name="sex" th:value="女" th:checked="${employee.sex} == '女'">
+            女
+        </label>
+    </label>
+    <input type="submit" value="提交">
+</form>
 
 </body>
 </html>

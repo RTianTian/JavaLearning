@@ -2,52 +2,53 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="icu.xuyijie.springbootthymeleaf.mapper.EmployeeMapper">
 
+    <select id="getById" resultType="icu.xuyijie.springbootthymeleaf.entity.Employee">
+        SELECT *
+        FROM employee
+        WHERE id = #{id}
+    </select>
+
     <select id="searchEmployeeList" resultType="icu.xuyijie.springbootthymeleaf.entity.Employee">
-        SELECT
-        id,
-        username,
-        duty,
-        DATE_FORMAT(create_time, '%Y-%m-%d %H:%i:%s') AS createTime,
-        DATE_FORMAT(edit_time, '%Y-%m-%d %H:%i:%s') editTime,
-        is_depart,
-        is_delete
+        SELECT *
         FROM employee
         WHERE is_delete = false
-        <if test="username != null and username != ''">
-            AND username LIKE CONCAT('%', #{username}, '%')
+        <if test="name != null and name != ''">
+            AND name LIKE CONCAT('%', #{name}, '%')
         </if>
         <if test="duty != null and duty != ''">
-            AND username LIKE '%' + #{duty} + '%'
+            AND name LIKE '%' + #{duty} + '%'
+        </if>
+        <if test="sex != null and sex != ''">
+            AND sex = #{sex}
         </if>
         ORDER BY create_time DESC
     </select>
 
     <insert id="insert">
         INSERT INTO employee
-        VALUES (#{id}, #{username}, #{duty}, CURRENT_TIME, #{editTime}, #{isDepart}, #{isDelete})
+        VALUES (#{id}, #{name}, #{duty}, #{sex}, CURRENT_TIME, #{editTime}, #{isDepart}, #{isDelete})
     </insert>
 
     <update id="update">
         UPDATE employee
-        SET username  = #{username},
-            duty      = #{duty},
+        <set>
             edit_time = CURRENT_TIME,
-            is_depart = #{isDepart},
-            is_delete = #{isDelete}
-        WHERE id = #{id}
-    </update>
-
-    <update id="departOrEntryEmployee">
-        UPDATE employee
-        SET edit_time = CURRENT_TIME,
-            is_depart = #{isDepart}
-        WHERE id = #{id}
-    </update>
-
-    <update id="delete">
-        UPDATE employee
-        SET edit_time = CURRENT_TIME,
-            is_delete = true
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="duty != null and duty != ''">
+                duty = #{duty},
+            </if>
+            <if test="sex != null and sex != ''">
+                sex = #{sex},
+            </if>
+            <if test="isDepart != null">
+                is_depart = #{isDepart},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete},
+            </if>
+        </set>
         WHERE id = #{id}
     </update>
 

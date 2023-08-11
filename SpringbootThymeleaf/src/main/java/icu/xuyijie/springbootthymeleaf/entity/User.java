@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * @author 徐一杰
  * @date 2023/7/22 13:59
- * @description
+ * @description 登录用户
  */
 @Data
 public class User implements Serializable {
