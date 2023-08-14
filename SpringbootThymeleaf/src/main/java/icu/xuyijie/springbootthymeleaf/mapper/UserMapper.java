@@ -1,5 +1,6 @@
 package icu.xuyijie.springbootthymeleaf.mapper;
 
+import icu.xuyijie.springbootthymeleaf.dto.UserDto;
 import icu.xuyijie.springbootthymeleaf.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,4 +12,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserMapper {
     User findUserByUsernameAndPassword(User user);
+    int insert(UserDto userDto);
 }

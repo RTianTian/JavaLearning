@@ -1,5 +1,6 @@
 package icu.xuyijie.springbootthymeleaf.controller;
 
+import icu.xuyijie.springbootthymeleaf.dto.UserDto;
 import icu.xuyijie.springbootthymeleaf.entity.User;
 import icu.xuyijie.springbootthymeleaf.mapper.UserMapper;
 import jakarta.servlet.http.HttpSession;
@@ -33,4 +34,15 @@ public class UserController {
         return "redirect:/employee";
     }
 
+    @PostMapping("/register")
+    public String register(UserDto userDto, Model model) {
+        System.out.println(userDto);
+        int i = userMapper.insert(userDto);
+        if (i == 1) {
+            model.addAttribute("msg", "注册成功，请登录");
+        } else {
+            model.addAttribute("msg", "注册失败");
+        }
+        return "index";
+    }
 }

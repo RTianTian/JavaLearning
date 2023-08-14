@@ -13,6 +13,7 @@ import java.util.Date;
 @Data
 public class User implements Serializable {
     private Integer id;
+    private String username;
     private String mobilePhone;
     private String password;
     private Date createTime;
