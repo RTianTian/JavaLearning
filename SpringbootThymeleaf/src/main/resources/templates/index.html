@@ -158,9 +158,14 @@
             </label>
             <button type="submit">注册</button>
         </form>
+        <span th:text="${registerMsg}" style="color: #ac2925"></span>
     </div>
 </div>
-<script>
+<script th:inline="javascript">
+    if ([[${registerMsg}]]) {
+        changeRegisterFlag()
+    }
+
     function changeLoginFlag() {
         const index = document.getElementById('index');
         const login = document.getElementById('login');

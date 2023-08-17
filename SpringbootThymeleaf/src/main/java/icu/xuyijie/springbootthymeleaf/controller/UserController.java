@@ -1,12 +1,12 @@
 package icu.xuyijie.springbootthymeleaf.controller;
 
-import icu.xuyijie.springbootthymeleaf.dto.UserDto;
 import icu.xuyijie.springbootthymeleaf.entity.User;
 import icu.xuyijie.springbootthymeleaf.mapper.UserMapper;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -35,14 +35,33 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(UserDto userDto, Model model) {
-        System.out.println(userDto);
-        int i = userMapper.insert(userDto);
-        if (i == 1) {
-            model.addAttribute("msg", "注册成功，请登录");
+    public String register(User user, String rePassword, Model model) {
+        System.out.println("用户注册输入信息：" + user);
+        System.out.println("用户注册输入的第二次密码：" + rePassword);
+
+        String password = user.getPassword();
+        if (!StringUtils.hasLength(password)) {
+            model.addAttribute("registerMsg", "密码为空");
+            return "index";
+        } else if (!StringUtils.hasLength(rePassword)) {
+            model.addAttribute("registerMsg", "请再次输入密码");
+            return "index";
+        } else if (!rePassword.equals(password)) {
+            model.addAttribute("registerMsg", "两次密码输入不一致，请重新输入");
+            return "index";
+        }
+        String phone = user.getMobilePhone();
+        User findUser = userMapper.findPhone(phone);
+        if (findUser != null) {
+            model.addAttribute("registerMsg", "手机号已存在，请重新注册");
         } else {
-            model.addAttribute("msg", "注册失败");
+            userMapper.insert(user);
+            model.addAttribute("msg", "注册成功，请登录");
         }
         return "index";
     }
+
 }
+
+
+
