@@ -94,7 +94,7 @@ public class EmployeeController {
         } else {
             employeeMapper.update(employee);
         }
-        //保存后重定向，重新获取列表数据
+        //保存后重定向(重定向就是改变浏览器url，相当于输入127.0.0.1:8080/employee后回车)，重新获取列表数据
         return "redirect:/employee";
     }
 
