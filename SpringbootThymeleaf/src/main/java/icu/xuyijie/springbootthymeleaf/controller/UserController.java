@@ -27,10 +27,12 @@ public class UserController {
     public String login(User user, Model model, HttpSession session) {
         User one = userMapper.findUserByUsernameAndPassword(user);
         if (Objects.isNull(one)) {
+//            因为有了Model 所以才有会从页面上输出  attributeValue值
             model.addAttribute("msg", "账号或密码错误");
             return "index";
         }
-        session.setAttribute("user", one);
+//    session.setAttribute（键对值，value值）  同hashMap()中的push，set方法一样
+    session.setAttribute("user", one);//将one存到user里面，user属于一个类型值同String一样
         return "redirect:/employee";
     }
 
@@ -40,10 +42,13 @@ public class UserController {
         System.out.println("用户注册输入的第二次密码：" + rePassword);
 
         String password = user.getPassword();
+//        StringUtils.hasLength 如果字符序列不为null值，且字符序列大于0，则返回true值
         if (!StringUtils.hasLength(password)) {
             model.addAttribute("registerMsg", "密码为空");
             return "index";
         } else if (!StringUtils.hasLength(rePassword)) {
+//       model.addAttribute(Map attribute)如果变量已存在，则覆盖
+//       model.mergeAttribute(Map attribute)如果变量已存在，则忽略
             model.addAttribute("registerMsg", "请再次输入密码");
             return "index";
         } else if (!rePassword.equals(password)) {

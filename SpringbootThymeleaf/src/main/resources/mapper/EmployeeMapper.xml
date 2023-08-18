@@ -24,9 +24,10 @@
         ORDER BY create_time DESC
     </select>
 
+    <!--插入不需要设置id, id是mysql自动生成的；是否离职、是否删除，需要手动填充一个FALSE-->
     <insert id="insert">
         INSERT INTO employee
-        VALUES (#{id}, #{name}, #{duty}, #{sex}, CURRENT_TIME, #{editTime}, #{isDepart}, #{isDelete})
+        VALUES (NULL, #{name}, #{duty}, #{sex}, CURRENT_TIME, #{editTime}, FALSE, FALSE)
     </insert>
 
     <update id="update">

@@ -8,6 +8,7 @@
             margin: 150px auto;
             text-align: center;
         }
+
         .blockLabel {
             display: block;
             margin-bottom: 10px;
@@ -16,7 +17,9 @@
 </head>
 <body>
 
-<form th:action="@{'/employee/addOrEditEmployee/' + ${employee.id}}" method="post">
+<form th:action="@{'/employee/addOrEditEmployee'}" method="post">
+    <!--这一行用于编辑的时候向后端传输emplyee的id，但是不用显示出来，所以display: none（form的action提交的内容是form标签里的所有input）-->
+    <input style="display: none" type="text" name="id" th:value="${employee.id}">
     <label class="blockLabel">
         名字：
         <input type="text" name="name" th:value="${employee.name}">
@@ -37,7 +40,9 @@
         </label>
     </label>
     <input type="submit" value="提交">
+
 </form>
+
 
 </body>
 </html>
