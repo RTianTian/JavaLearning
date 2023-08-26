@@ -27,7 +27,8 @@
     <!--插入不需要设置id, id是mysql自动生成的；是否离职、是否删除，需要手动填充一个FALSE-->
     <insert id="insert">
         INSERT INTO employee
-        VALUES (NULL, #{name}, #{duty}, #{sex}, CURRENT_TIME, #{editTime}, FALSE, FALSE)
+            (name, duty, sex, create_time, is_depart, is_delete)
+        VALUES (#{name}, #{duty}, #{sex}, CURRENT_TIME, FALSE, FALSE)
     </insert>
 
     <update id="update">

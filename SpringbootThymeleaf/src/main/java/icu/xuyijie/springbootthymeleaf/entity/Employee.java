@@ -1,5 +1,6 @@
 package icu.xuyijie.springbootthymeleaf.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -15,7 +16,9 @@ public class Employee {
     private String name;
     private String duty;
     private String sex;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date editTime;
     private Boolean isDepart;
     private Boolean isDelete;

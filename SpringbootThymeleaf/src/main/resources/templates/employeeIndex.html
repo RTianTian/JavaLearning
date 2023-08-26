@@ -49,7 +49,6 @@
             <td th:text="${employee.isDepart} == true ? '离职' : '在职'"></td>
 
             <td>
-
                 <button>
                     <a th:href="@{'/employee/goEditEmployee/' + ${employee.id}}">编辑</a>
                 </button>
@@ -68,10 +67,7 @@
                 </button>
             </td>
         </tr>
-
-
         </tbody>
-
     </table>
 
 </div>
