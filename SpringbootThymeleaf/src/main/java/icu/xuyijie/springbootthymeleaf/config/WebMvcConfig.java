@@ -18,6 +18,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 //                .excludePathPatterns("/", "/user/login", "/user/register", "index.html", "/static/**");
 //    }
 
+    /*前后端不分离的配置*/
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         WebMvcConfigurer.super.addResourceHandlers(registry);
@@ -31,6 +32,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/").setViewName("index");
     }
 
+    /*前后端分离的配置*/
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry
