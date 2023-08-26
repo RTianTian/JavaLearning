@@ -7,18 +7,27 @@ import org.springframework.web.servlet.config.annotation.*;
 /**
  * @author 徐一杰
  * @date 2023/7/22
- * @description
+ * @description web配置
  */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(new LoginInterceptor())
-//                .addPathPatterns("/**")
-//                .excludePathPatterns("/", "/user/login", "/user/register", "index.html", "/static/**");
-//    }
+    /**
+     * 加载登录拦截器
+     */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LoginInterceptor())
+                .addPathPatterns("/**")
+                .excludePathPatterns(
+                        "/",
+                        "/user/login", "/user/login2", "/user/register", "/user/register2",
+                        "index.html", "/static/**"
+                );
+    }
 
-    /*前后端不分离的配置*/
+    /**
+     * 前后端不分离的配置，如果网页需要加载图片或者外部js、css等资源，就把资源放到resource/static文件夹
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         WebMvcConfigurer.super.addResourceHandlers(registry);
@@ -26,13 +35,18 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/static/");
     }
 
+    /**
+     * 设置打开localhost:8080的默认展示网页
+     */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         //这个不加也行，因为默认就是/访问index.html
         registry.addViewController("/").setViewName("index");
     }
 
-    /*前后端分离的配置*/
+    /**
+     * 前后端分离的跨域配置
+     */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry

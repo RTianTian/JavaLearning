@@ -97,7 +97,6 @@ public class EmployeeController {
     @GetMapping("/goEditEmployee2/{id}")
     @ResponseBody
     public Employee goEditEmployee2(@PathVariable Integer id) {
-        //这不是返回到前端了吗
         return employeeMapper.getById(id);
     }
 

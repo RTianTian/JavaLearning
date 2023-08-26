@@ -28,24 +28,23 @@ public class UserController {
     public String login(User user, Model model, HttpSession session) {
         User one = userMapper.findUserByUsernameAndPassword(user);
         if (Objects.isNull(one)) {
-//            因为有了Model 所以才有会从页面上输出  attributeValue值
+            //因为有了Model 所以才有会从页面上输出  attributeValue值
             model.addAttribute("msg", "账号或密码错误");
             return "index";
         }
-//    session.setAttribute（键对值，value值）  同hashMap()中的push，set方法一样
-    session.setAttribute("user", one);//将one存到user里面，user属于一个类型值同String一样
+        //session.setAttribute（键对值，value值）  同hashMap()中的push，set方法一样
+        session.setAttribute("user", one);//将one存到user里面，user属于一个类型值同String一样
         return "redirect:/employee";
     }
+
     @ResponseBody
     @PostMapping("/login2")
     public String login2(User user, HttpSession session) {
         User one = userMapper.findUserByUsernameAndPassword(user);
         if (Objects.isNull(one)) {
-//            因为有了Model 所以才有会从页面上输出  attributeValue值
-
             return "失败";
         }
-//    session.setAttribute（键对值，value值）  同hashMap()中的push，set方法一样
+        //session.setAttribute（键对值，value值）  同hashMap()中的push，set方法一样
         session.setAttribute("user", one);//将one存到user里面，user属于一个类型值同String一样
         return "成功";
     }
@@ -57,13 +56,13 @@ public class UserController {
         System.out.println("用户注册输入的第二次密码：" + rePassword);
 
         String password = user.getPassword();
-//        StringUtils.hasLength 如果字符序列不为null值，且字符序列大于0，则返回true值
+        //StringUtils.hasLength 如果字符序列不为null值，且字符序列大于0，则返回true值
         if (!StringUtils.hasLength(password)) {
             model.addAttribute("registerMsg", "密码为空");
             return "index";
         } else if (!StringUtils.hasLength(rePassword)) {
-//       model.addAttribute(Map attribute)如果变量已存在，则覆盖
-//       model.mergeAttribute(Map attribute)如果变量已存在，则忽略
+            //model.addAttribute(Map attribute)如果变量已存在，则覆盖
+            //model.mergeAttribute(Map attribute)如果变量已存在，则忽略
             model.addAttribute("registerMsg", "请再次输入密码");
             return "index";
         } else if (!rePassword.equals(password)) {
@@ -80,36 +79,32 @@ public class UserController {
         }
         return "index";
     }
-@ResponseBody
+
+    @ResponseBody
     @PostMapping("/register2")
     public String register2(User user, String rePassword) {
         System.out.println("用户注册输入信息：" + user);
         System.out.println("用户注册输入的第二次密码：" + rePassword);
 
         String password = user.getPassword();
-//        StringUtils.hasLength 如果字符序列不为null值，且字符序列大于0，则返回true值
+        //StringUtils.hasLength 如果字符序列不为null值，且字符序列大于0，则返回true值
         if (!StringUtils.hasLength(password)) {
-
             return "注册失败";
         } else if (!StringUtils.hasLength(rePassword)) {
-//       model.addAttribute(Map attribute)如果变量已存在，则覆盖
-//       model.mergeAttribute(Map attribute)如果变量已存在，则忽略
-
             return "注册失败(请再次输入密码)";
         } else if (!rePassword.equals(password)) {
-
             return "注册失败（密码不一致）";
         }
         String phone = user.getMobilePhone();
         User findUser = userMapper.findPhone(phone);
         if (findUser != null) {
-         return "注册失败（手机号已存在）";
+            return "注册失败（手机号已存在）";
         } else {
             userMapper.insert(user);
-           return "注册成功";
+            return "注册成功";
         }
-
     }
+
 }
 
 
