@@ -2,6 +2,7 @@ package icu.xuyijie.springbootthymeleaf;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author 徐一杰
@@ -9,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @description springboot thymeleaf demo
  */
 @SpringBootApplication
+@EnableScheduling
 public class SpringbootThymeleafApplication {
 
     public static void main(String[] args) {
