@@ -14,16 +14,16 @@ public class WebMvcConfig implements WebMvcConfigurer {
     /**
      * 加载登录拦截器
      */
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginInterceptor())
-                .addPathPatterns("/**")
-                .excludePathPatterns(
-                        "/",
-                        "/user/login", "/user/login2", "/user/register", "/user/register2",
-                        "index.html", "/static/**"
-                );
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(new LoginInterceptor())
+//                .addPathPatterns("/**")
+//                .excludePathPatterns(
+//                        "/",
+//                        "/user/login", "/user/login2", "/user/register", "/user/register2",
+//                        "index.html", "/static/**"
+//                );
+//    }
 
     /**
      * 前后端不分离的配置，如果网页需要加载图片或者外部js、css等资源，就把资源放到resource/static文件夹
