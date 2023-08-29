@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tiantian.employeemanagement.mapper.UserMapper">
+    <insert id="insert">
+        INSERT INTO user
+        values (null, #{username}, #{mobilePhone}, #{password}, CURRENT_TIME, null, false)
+    </insert>
+
+
+    <select id="findUserByUsernameAndPassword" resultType="com.tiantian.employeemanagement.entity.User">
+        SELECT *
+        FROM user
+        WHERE is_delete = false
+          AND mobile_phone = #{mobilePhone}
+          AND password = #{password}
+    </select>
+
+    <select id="findPhone" resultType="com.tiantian.employeemanagement.entity.User">
+        SELECT *
+        FROM user
+        WHERE is_delete = false
+          AND mobile_phone = #{mobilePhone}
+    </select>
+
+</mapper>
