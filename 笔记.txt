@@ -1,0 +1,20 @@
+前后端分离，接口需要加@ResponseBody，返回数据，而不是页面
+@ResponseBody+controller 返回的是页面
+
+又更新了一下表
+employee表增加了一个字段contract_deadline， 合同到期时间
+
+yyyy-MM-ddThh:mm
+yyyy-MM-dd HH:mm:ss
+
+
+2023-08-26 15:18:00
+
+2023-08-26 15:42:00
+
+@Mapper
+@RestController
+@Service
+@Component
+
+可以被@Autowired注入
