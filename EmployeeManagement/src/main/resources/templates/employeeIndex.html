@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>员工列表</title>
+    <style>
+        table {
+            text-align: center
+        }
+
+        thead {
+            background-color: #ccc;
+        }
+
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <button>
+        <a th:href="@{'/employee/goAddEmployee'}">新增</a>
+    </button>
+    <!--fragment可以局部刷新-->
+    <table id="table" th:fragment="employeeTable">
+        <thead>
+        <tr style="height: 50px">
+            <th style="width: 100px">员工ID</th>
+            <th style="width: 100px">员工姓名</th>
+            <th style="width: 100px">员工职位</th>
+            <th style="width: 100px">员工性别</th>
+            <th style="width: 200px">入职时间</th>
+            <th style="width: 200px">修改时间</th>
+            <th style="width: 100px">状态</th>
+            <th style="width: 200px">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr class="tableColumn" th:attr="employeeIsDepart=${employee.isDepart}" th:each="employee : ${employeeList}">
+            <td th:text="${employee.id}"></td>
+            <td>[[${employee.name}]]</td>
+            <td th:text="${employee.duty}"></td>
+            <td th:text="${employee.sex}"></td>
+            <td th:text="${#dates.format(employee.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+            <td th:text="${employee.editTime}"></td>
+            <td th:text="${employee.isDepart} == true ? '离职' : '在职'"></td>
+
+            <td>
+                <button>
+                    <a th:href="@{'/employee/goEditEmployee/' + ${employee.id}}">编辑</a>
+                </button>
+                <button th:if="${employee.isDepart} == true">
+                    <a th:href="@{/employee/entryEmployee/{id}(id=${employee.id})}">再入职</a>
+                </button>
+                <button th:if="not ${employee.isDepart} == true">
+                    <a th:href="@{/employee/departEmployee/{id}(id=${employee.id})}">离职</a>
+                </button>
+                <!--如果需要携带一些参数(原生js发送post请求)-->
+                <button th:id="'deleteButton' + ${employee.id}"
+                        th:attr="del_uri=@{/employee/delEmployee}, employeeId=${employee.id}"
+                        onclick="deleteEmployee(this.id)"
+                >
+                    删除
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+
+<script th:inline="javascript">
+    window.onload = function () {
+        changeColumnStyle()
+    }
+
+    /**
+     * 离职员工所在行设置粉色背景
+     */
+    function changeColumnStyle() {
+        const tableColumnList = document.getElementsByClassName("tableColumn")
+        for (let i = 0; i < tableColumnList.length; i++) {
+            const tableColumn = tableColumnList.item(i)
+            const employeeIsDepart = tableColumn.getAttribute('employeeIsDepart')
+            if (employeeIsDepart === 'true') {
+                tableColumn.style.backgroundColor = 'pink'
+            }
+        }
+    }
+
+    /**
+     * 删除员工
+     * @param tagId 员工id
+     */
+    function deleteEmployee(tagId) {
+        const deleteForm = document.getElementById(tagId)
+        const url = deleteForm.getAttribute('del_uri')
+        const id = deleteForm.getAttribute('employeeId')
+        const httpRequest = new XMLHttpRequest();
+        httpRequest.open('DELETE', url, true);
+        httpRequest.setRequestHeader("Content-type", "application/json");
+        const param = {
+            "id": id,
+        };
+        httpRequest.send(JSON.stringify(param));
+
+        // 响应后的回调函数
+        httpRequest.onreadystatechange = function () {
+            if (httpRequest.status === 200) {
+                const json = httpRequest.responseText;
+                const table = document.getElementById('table')
+                //更新页面dom
+                table.innerHTML = json
+                //设置页面style
+                changeColumnStyle()
+            } else {
+                console.log(httpRequest.status);
+            }
+        };
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tiantian.employeemanagement.mapper.EmployeeMapper">
+
+    <select id="getById" resultType="com.tiantian.employeemanagement.entity.Employee">
+        SELECT *
+        FROM employee
+        WHERE id = #{id}
+    </select>
+
+    <select id="searchEmployeeList" resultType="com.tiantian.employeemanagement.entity.Employee">
+        SELECT *
+        FROM employee
+        WHERE is_delete = false
+        <if test="name != null and name != ''">
+            AND name LIKE CONCAT('%', #{name}, '%')
+        </if>
+        <if test="duty != null and duty != ''">
+            AND duty LIKE '%' + #{duty} + '%'
+        </if>
+        <if test="sex != null and sex != ''">
+            AND sex = #{sex}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+    <!--插入不需要设置id, id是mysql自动生成的；是否离职、是否删除，需要手动填充一个FALSE-->
+    <insert id="insert">
+        INSERT INTO employee
+            (name, duty, sex, create_time, is_depart, is_delete,contract_deadline)
+        VALUES (#{name}, #{duty}, #{sex}, CURRENT_TIME, FALSE, FALSE, #{contractDeadline})
+    </insert>
+
+    <update id="update">
+        UPDATE employee
+        <set>
+            edit_time = CURRENT_TIME,
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="duty != null and duty != ''">
+                duty = #{duty},
+            </if>
+            <if test="sex != null and sex != ''">
+                sex = #{sex},
+            </if>
+            <if test="isDepart != null">
+                is_depart = #{isDepart},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+</mapper>

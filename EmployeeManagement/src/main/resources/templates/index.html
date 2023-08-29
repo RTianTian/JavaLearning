@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页</title>
+    <style>
+        .index {
+            width: 30%;
+            min-width: 350px;
+            height: 370px;
+            margin: 150px auto;
+            padding-top: 30px;
+            text-align: center;
+            background-color: #ccc;
+            border-radius: 17px;
+            overflow: hidden;
+            transition: 0.5s all;
+        }
+
+        .registerClass {
+            width: 30%;
+            min-width: 350px;
+            height: 500px;
+            margin: 100px auto;
+            padding-top: 30px;
+            text-align: center;
+            background-color: #ccc;
+            border-radius: 17px;
+            overflow: hidden;
+            transition: 0.5s all;
+        }
+
+        .buttonBox {
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .buttonBox button {
+            text-decoration: none;
+            font-size: 1.5rem;
+            display: inline-block;
+            width: 90px;
+            height: 40px;
+            color: white;
+            text-align: center;
+            border: 0;
+            border-radius: 7px;
+            margin: 0 5px;
+            transition: all 0.2s;
+        }
+
+        .buttonBox > :nth-child(1) {
+            background-color: #eeb4be;
+        }
+
+        .buttonBox > :nth-child(2) {
+            background-color: #6abb91;
+        }
+
+        .buttonBox button:hover {
+            transform: scale(1.1);
+        }
+
+        .buttonBox button:active {
+            transform: scale(0.9);
+        }
+
+        .formInput {
+            width: 88%;
+            height: 35px;
+            border-radius: 7px;
+            border: 1px solid;
+            margin-top: 20px;
+            outline: 0 solid;
+            display: inline-block;
+            transition: all 0.3s ease;
+            padding: 2px 10px;
+        }
+
+        .formInput:hover {
+            box-shadow: 0 0 30px pink;
+            background-color: paleturquoise;
+            transform: scale(1.05, 1.05);
+            transition: all 0.3s ease;
+        }
+
+        .formInput:focus {
+            box-shadow: 0 0 30px pink;
+            background-color: paleturquoise;
+            transform: scale(1.05, 1.05);
+            transition: all 0.3s ease;
+        }
+
+        #login button, #register button {
+            width: 92%;
+            height: 35px;
+            border-radius: 7px;
+            border: 1px solid;
+            outline: 0 solid;
+            display: block;
+            margin: 20px auto;
+            transition: all 0.3s ease;
+        }
+
+        #login button:focus, #register button:focus {
+            box-shadow: 5px 5px 10px pink;
+            background-color: paleturquoise;
+        }
+
+        #login button:hover, #register button:hover {
+            box-shadow: 5px 5px 10px pink;
+            background-color: paleturquoise;
+            transform: scale(1.05, 1.05);
+            transition: all 0.5s ease;
+        }
+
+        #login button:active, #register button:active {
+            box-shadow: 0 0 10px yellow;
+            background-color: pink;
+            transform: scale(1, 1);
+            transition: all 0.05s ease;
+        }
+    </style>
+</head>
+<body>
+<div id="index" class="index">
+    <div class="buttonBox">
+        <button onclick="changeLoginFlag()">登录</button>
+        <button onclick="changeRegisterFlag()">注册</button>
+    </div>
+    <div id="login">
+        <h1>XX系统</h1>
+        <form th:action="@{/user/login}" method="post">
+            <label>
+                <input class="formInput" type="text" name="mobilePhone" placeholder="请输入手机号">
+            </label>
+            <label>
+                <input class="formInput" type="password" name="password" placeholder="请输入密码">
+            </label>
+            <button type="submit">登录</button>
+        </form>
+<!--        th:text  将controller里的msg的数据 显示出来-->
+        <span th:text="${msg}" style="color: #ac2925"></span>
+    </div>
+    <div id="register" style="display: none">
+        <h1>欢迎注册XX系统</h1>
+        <form th:action="@{/user/register}" method="post">
+            <label>
+                <input class="formInput" type="text" name="username" placeholder="给自己起个好听的名字吧">
+            </label>
+            <label>
+                <input class="formInput" type="text" name="mobilePhone" placeholder="输入手机号作为账号">
+            </label>
+            <label>
+                <input class="formInput" type="password" name="password" placeholder="请输入密码">
+            </label>
+            <label>
+                <input class="formInput" type="password" name="rePassword" placeholder="请再次输入密码">
+            </label>
+            <button type="submit">注册</button>
+        </form>
+        <span th:text="${registerMsg}" style="color: #ac2925"></span>
+    </div>
+</div>
+<script th:inline="javascript">
+    if ([[${registerMsg}]]) {
+        changeRegisterFlag()
+    }
+
+    function changeLoginFlag() {
+        const index = document.getElementById('index');
+        const login = document.getElementById('login');
+        const register = document.getElementById('register');
+        index.className = 'index'
+        register.style.display = 'none'
+        login.style.display = 'block';
+    }
+
+    function changeRegisterFlag() {
+        const index = document.getElementById('index');
+        const login = document.getElementById('login');
+        const register = document.getElementById('register');
+        index.className = 'registerClass'
+        login.style.display = 'none'
+        register.style.display = 'block';
+    }
+</script>
+</body>
+</html>
