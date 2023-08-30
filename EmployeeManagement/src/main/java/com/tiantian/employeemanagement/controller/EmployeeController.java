@@ -65,6 +65,7 @@ public class EmployeeController {
      * @return 保存结果
      */
     @PostMapping("/jsonAddOrEditEmployee")
+//    @RequestBody主要用来接收前端传递给后端的json字符串中的数据的
     public boolean jsonAddOrEditEmployee(@RequestBody Employee employee) {
         //id为null的时候，说明是新增操作
         if (employee.getId() == null) {
