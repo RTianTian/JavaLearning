@@ -5,6 +5,7 @@ import com.tiantian.employeemanagement.mapper.EmployeeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -80,6 +81,20 @@ public class EmployeeController {
     @PostMapping("/entryEmployee")
     public void entryEmploy(@RequestBody Employee employee){
         employeeMapper.update(employee);
+    }
+
+    public static void main(String[] args) {
+        // id的值是31
+        // name的值是天天
+        String params = "?id=31&name=天天&age=20";
+     String[] arr = params.split("&");
+        System.out.println("1"+Arrays.toString (arr));
+        for (int i=0;i<arr.length;i++){
+           String[] arr2= arr[i].split("=");
+           System.out.println("2"+Arrays.toString(arr2));
+            System.out.println(arr2[0].replace("?", "") + "的值为" + arr2[1]);
+        }
+
     }
 
 }
